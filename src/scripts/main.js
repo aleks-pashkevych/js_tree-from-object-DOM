@@ -29,10 +29,9 @@ if (tree === null) {
   body.appendChild(tree);
 }
 
-const ul = document.createElement('ul');
-
 function createTree(element, data) {
   // WRITE YOUR CODE HERE
+  const ul = document.createElement('ul');
 
   for (const key in data) {
     if (Object.keys(data[key])) {
@@ -42,9 +41,11 @@ function createTree(element, data) {
       ul.appendChild(li);
 
       if (typeof data[key] === 'object') {
-        const newLi = document.createElement('li');
+        const newUl = document.createElement('ul');
 
-        createTree(newLi, data[key]);
+        li.appendChild(newUl);
+
+        createTree(newUl, data[key]);
       }
     }
     element.appendChild(ul);

@@ -34,22 +34,16 @@ function createTree(element, data) {
   const ul = document.createElement('ul');
 
   for (const key in data) {
-    if (Object.keys(data[key])) {
-      const li = document.createElement('li');
+    const li = document.createElement('li');
 
-      li.textContent = key;
-      ul.appendChild(li);
+    li.textContent = key;
 
-      if (typeof data[key] === 'object') {
-        const newUl = document.createElement('ul');
-
-        li.appendChild(newUl);
-
-        createTree(newUl, data[key]);
-      }
+    if (Object.keys(data[key]).length > 0) {
+      createTree(li, data[key]);
     }
-    element.appendChild(ul);
+    ul.appendChild(li);
   }
+  element.appendChild(ul);
 }
 
 createTree(tree, food);

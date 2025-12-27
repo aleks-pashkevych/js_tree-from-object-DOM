@@ -22,29 +22,33 @@ let tree = document.querySelector('#tree');
 
 if (tree === null) {
   tree = document.createElement('div');
+  tree.setAttribute('id', 'tree');
 
   const body = document.querySelector('body');
 
   body.appendChild(tree);
 }
 
+const ul = document.createElement('ul');
+
 function createTree(element, data) {
   // WRITE YOUR CODE HERE
 
-  if (Object.keys(data).length === 0) {
-    return false;
-  }
-
-  const ul = document.createElement('ul');
-
   for (const key in data) {
-    const li = document.createElement('li');
+    if (Object.keys(data[key])) {
+      const li = document.createElement('li');
 
-    li.textContent = key;
-    createTree(li, data[key]);
-    ul.appendChild(li);
+      li.textContent = key;
+      ul.appendChild(li);
+
+      if (typeof data[key] === 'object') {
+        const newLi = document.createElement('li');
+
+        createTree(newLi, data[key]);
+      }
+    }
+    element.appendChild(ul);
   }
-  element.append(ul);
 }
 
 createTree(tree, food);
